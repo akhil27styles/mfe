@@ -1,18 +1,74 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Grid from '@material-ui/core/Grid';
+import StarIcon from '@material-ui/icons/StarBorder';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import { Link as RouterLink } from 'react-router-dom';
 
 function Copyright() {
   return (
-    <p style={{ textAlign: 'center', color: '#6c757d' }}>
+    <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <a href="https://material-ui.com/" style={{ color: 'inherit' }}>
+      <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </a>{' '}
+      </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
-    </p>
+    </Typography>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  '@global': {
+    ul: {
+      margin: 0,
+      padding: 0,
+      listStyle: 'none',
+    },
+  },
+  toolbar: {
+    flexWrap: 'wrap',
+  },
+  toolbarTitle: {
+    flexGrow: 1,
+  },
+  link: {
+    margin: theme.spacing(1, 1.5),
+  },
+  heroContent: {
+    padding: theme.spacing(8, 0, 6),
+  },
+  cardHeader: {
+    backgroundColor:
+      theme.palette.type === 'light'
+        ? theme.palette.grey[200]
+        : theme.palette.grey[700],
+  },
+  cardPricing: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    marginTop: theme.spacing(8),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing(6),
+      paddingBottom: theme.spacing(6),
+    },
+  },
+}));
 
 const tiers = [
   {
@@ -53,7 +109,6 @@ const tiers = [
     buttonVariant: 'outlined',
   },
 ];
-
 const footers = [
   {
     title: 'Company',
@@ -64,6 +119,7 @@ const footers = [
     description: [
       'Cool stuff',
       'Random feature',
+      'Team feature',
       'Developer stuff',
       'Another one',
     ],
@@ -84,73 +140,114 @@ const footers = [
 ];
 
 export default function Pricing() {
+  const classes = useStyles();
+
   return (
     <React.Fragment>
       {/* Hero unit */}
-      <section style={{ padding: '64px 0', textAlign: 'center' }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <h1>Pricing</h1>
-          <p>
-            Quickly build an effective pricing table for your potential customers with this layout.
-            It&apos;s built with default Material-UI components with little customization.
-          </p>
-        </div>
-      </section>
+      <Container maxWidth="sm" component="main" className={classes.heroContent}>
+        <Typography
+          component="h1"
+          variant="h2"
+          align="center"
+          color="textPrimary"
+          gutterBottom
+        >
+          Pricing
+        </Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          Quickly build an effective pricing table for your potential customers
+          with this layout. It&apos;s built with default Material-UI components
+          with little customization.
+        </Typography>
+      </Container>
       {/* End hero unit */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 0' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px' }}>
+      <Container maxWidth="md" component="main">
+        <Grid container spacing={5} alignItems="flex-end">
           {tiers.map((tier) => (
-            <div key={tier.title} style={{ flex: '1 1 calc(33.333% - 32px)', boxSizing: 'border-box' }}>
-              <div style={{ border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden' }}>
-                <div style={{ backgroundColor: '#f8f9fa', padding: '16px', textAlign: 'center' }}>
-                  <h2>{tier.title}</h2>
-                  {tier.subheader && <h3>{tier.subheader}</h3>}
-                </div>
-                <div style={{ padding: '16px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '24px', fontWeight: 'bold' }}>${tier.price}</div>
-                  <div style={{ fontSize: '16px', color: '#6c757d' }}>/mo</div>
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
+            // Enterprise card is full width at sm breakpoint
+            <Grid
+              item
+              key={tier.title}
+              xs={12}
+              sm={tier.title === 'Enterprise' ? 12 : 6}
+              md={4}
+            >
+              <Card>
+                <CardHeader
+                  title={tier.title}
+                  subheader={tier.subheader}
+                  titleTypographyProps={{ align: 'center' }}
+                  subheaderTypographyProps={{ align: 'center' }}
+                  action={tier.title === 'Pro' ? <StarIcon /> : null}
+                  className={classes.cardHeader}
+                />
+                <CardContent>
+                  <div className={classes.cardPricing}>
+                    <Typography component="h2" variant="h3" color="textPrimary">
+                      ${tier.price}
+                    </Typography>
+                    <Typography variant="h6" color="textSecondary">
+                      /mo
+                    </Typography>
+                  </div>
+                  <ul>
                     {tier.description.map((line) => (
-                      <li key={line} style={{ margin: '8px 0' }}>
+                      <Typography
+                        component="li"
+                        variant="subtitle1"
+                        align="center"
+                        key={line}
+                      >
                         {line}
-                      </li>
+                      </Typography>
                     ))}
                   </ul>
-                </div>
-                <div style={{ padding: '16px', textAlign: 'center' }}>
-                  <RouterLink to="/auth/signup">
-                    <button style={{ padding: '8px 16px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px' }}>
-                      {tier.buttonText}
-                    </button>
-                  </RouterLink>
-                </div>
-              </div>
-            </div>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    component={RouterLink}
+                    to="/auth/signup"
+                    fullWidth
+                    color="primary"
+                  >
+                    {tier.buttonText}
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
           ))}
-        </div>
-      </section>
+        </Grid>
+      </Container>
       {/* Footer */}
-      <footer style={{ backgroundColor: '#f8f9fa', padding: '64px 0' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-evenly' }}>
+      <Container maxWidth="md" component="footer" className={classes.footer}>
+        <Grid container spacing={4} justifyContent="space-evenly">
           {footers.map((footer) => (
-            <div key={footer.title} style={{ flex: '1 1 25%', boxSizing: 'border-box' }}>
-              <h6>{footer.title}</h6>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
+            <Grid item xs={6} sm={3} key={footer.title}>
+              <Typography variant="h6" color="textPrimary" gutterBottom>
+                {footer.title}
+              </Typography>
+              <ul>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <a href="#" style={{ color: '#6c757d', textDecoration: 'none' }}>
+                    <Link href="#" variant="subtitle1" color="textSecondary">
                       {item}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Grid>
           ))}
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '32px' }}>
+        </Grid>
+        <Box mt={5}>
           <Copyright />
-        </div>
-      </footer>
+        </Box>
+      </Container>
       {/* End footer */}
     </React.Fragment>
   );
