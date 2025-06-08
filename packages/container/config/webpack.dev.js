@@ -18,7 +18,28 @@ const devConfig={
             remotes:{
                 marketing:'marketing@http://localhost:8081/remoteEntry.js',
             },
-            shared:packageJson.dependencies,
+            shared: {
+                react: {
+                  singleton: true,
+                  requiredVersion: packageJson.dependencies.react,
+                },
+                'react-dom': {
+                  singleton: true,
+                  requiredVersion: packageJson.dependencies['react-dom'],
+                },
+                'react-router-dom': {
+                  singleton: true,
+                  requiredVersion: packageJson.dependencies['react-router-dom'],
+                },
+                '@material-ui/core': {
+                  singleton: true,
+                  requiredVersion: packageJson.dependencies['@material-ui/core'],
+                },
+                '@material-ui/icons': {
+                  singleton: true,
+                  requiredVersion: packageJson.dependencies['@material-ui/icons'],
+                },
+              },              
         }),
     ]
 }
