@@ -13,7 +13,7 @@ const generateClassName = createGenerateClassName({
 });
 
 export default ({ onSignIn,history }) => {
-  console.log('Auth App Loaded! test');
+  console.log('Auth App Loaded! test 1');
   return (
     <div>
       <StylesProvider generateClassName={generateClassName}>
