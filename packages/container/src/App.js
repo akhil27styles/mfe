@@ -18,7 +18,7 @@ const generateClassName = createGenerateClassName({
 const history = createBrowserHistory();
 export default () => {
   const [isSignedIn,setIsSignedIn] =useState(false);
-  console.log('Marketing App Loaded test!');
+  console.log('Marketing App Loaded test 1!');
   useEffect(()=>{
     if(isSignedIn){
       history.push('/dashboard');
