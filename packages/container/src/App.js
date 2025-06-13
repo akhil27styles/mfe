@@ -44,7 +44,6 @@ export default () => {
             <Route path="/" component={MarketingLazy} />
           </Switch>
           </Suspense>
-          <div>hello</div>
         </div>
       </StylesProvider>
     </Router>

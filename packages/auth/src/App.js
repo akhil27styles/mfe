@@ -26,6 +26,7 @@ export default ({ onSignIn,history }) => {
             </Route>
           </Switch>
         </Router>
+        <div>Auth App</div>
       </StylesProvider>
     </div>
   );
