@@ -9,6 +9,7 @@ const generateClassName = createGenerateClassName({
   productionPrefix:'ma',
 })
 export default ({history}) => {
+  console.log('Marketing App Loaded test!');
   return (
     <div>
       <StylesProvider generateClassName={generateClassName}>
